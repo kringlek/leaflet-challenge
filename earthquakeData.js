@@ -1,13 +1,12 @@
+
 var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson";
 
 d3.json(queryUrl).then(function (data) {
  createDataInfo(data.features);
-
 });
 var test;
-function createDataInfo(magnitudeData) {
 
-  
+function createDataInfo(magnitudeData) {
   var earthquakesData = L.geoJSON(magnitudeData, {
   });
   test = (magnitudeData);
@@ -16,8 +15,6 @@ function createDataInfo(magnitudeData) {
 }
 
 function createDataMap(earthquakes) {
-
- 
   var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   })
@@ -26,14 +23,12 @@ function createDataMap(earthquakes) {
     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
   });
 
-
   var standardMaps = {
     "Street Map": street,
     "Topographic Map": topo
   };
 
-  var overallMaps = {
-    
+  var overallMaps = {  
   };
 
  var myMap = L.map("map", {
@@ -78,9 +73,9 @@ function createDataMap(earthquakes) {
         radius: mag*20000
     }).bindPopup(`<h3>${test[i].properties.place}</h3><hr> <h4><p>Magnitude ${mag}</p></h4> <p>${new Date(test[i].properties.time)}</p>`).addTo(myMap);
   }
+  
   myMap.removeLayer(earthquakes);
   L.control.layers(standardMaps, overallMaps, {
     collapsed: false
   }).addTo(myMap);
-
 }
